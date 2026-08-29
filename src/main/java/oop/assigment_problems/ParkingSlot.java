@@ -10,6 +10,9 @@ public class ParkingSlot {
         this.capacity = capacity;
         this.occupiedCount = occupiedCount;
     }
+    public String getSlotNo() {
+    return slotNo;
+}
 
     public void allot(String vehicleNo) {
         if (occupiedCount < capacity) {
