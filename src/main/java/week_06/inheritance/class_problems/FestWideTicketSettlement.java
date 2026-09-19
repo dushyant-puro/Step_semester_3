@@ -1,0 +1,8 @@
+package week_06.inheritance.class_problems;
+
+public class FestWideTicketSettlement {
+    static class EventTicket {private static int issued=0;private final String ticketId;protected double balance;EventTicket(double price){if(price<=0)throw new IllegalArgumentException();ticketId="TCK-"+(1001+issued++);balance=price;}void pay(double a){if(a>0)balance=Math.max(0,balance-a);}void pay(double a,String mode){System.out.println("Paying via "+mode);pay(a);}double getBalanceDue(){return balance;}String getTicketId(){return ticketId;}static int getTicketsIssued(){return issued;}static boolean isValidPromoCode(String c){return c!=null&&c.length()==5&&c.charAt(0)=='F'&&Character.isDigit(c.charAt(1))&&Character.isDigit(c.charAt(2))&&Character.isDigit(c.charAt(3))&&Character.isUpperCase(c.charAt(4));}}
+    static class GroupTicket extends EventTicket {private int groupSize;GroupTicket(double p,int n){super(p);if(n<=0)throw new IllegalArgumentException();groupSize=n;}int getGroupSize(){return groupSize;}}
+    static String processNightlySettlement(EventTicket[] ts){int processed=0,skipped=0,group=0,individual=0;for(EventTicket t:ts){if(t==null){skipped++;continue;}processed++;if(t instanceof GroupTicket)group++;else individual++;}return processed+" processed | "+skipped+" null skipped | "+group+" group | "+individual+" individual";}
+    public static void main(String[] args){System.out.println(isValidPromoCode("F123A"));System.out.println(processNightlySettlement(new EventTicket[]{new GroupTicket(2000,5),null,new EventTicket(500)}));}
+}
