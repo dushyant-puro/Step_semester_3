@@ -4,7 +4,9 @@ import java.util.Arrays;
 
 public class ImmutableDischargeSummaryLedger {
     static { System.setProperty("meditrack.ledger.ready", "true"); }
-    static final class DischargeSummary {
+    // The prompt requests a final base class and a subclass simultaneously; Java forbids that combination.
+    // Keep the base extensible here so the required critical-care subtype and instanceof processing can work.
+    static class DischargeSummary {
         private final String patientId;
         private final String[] medicationCodes;
         DischargeSummary(String id, String[] codes) {
