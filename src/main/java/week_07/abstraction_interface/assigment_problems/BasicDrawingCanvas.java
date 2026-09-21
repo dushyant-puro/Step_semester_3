@@ -3,27 +3,25 @@ package week_07.abstraction_interface.assigment_problems;
 abstract class Shape {
     private static int nextId = 1000;
     private final String shapeId;
+    protected double scaleX = 1.0;
+    protected double scaleY = 1.0;
     protected Shape() { shapeId = "SH-" + (++nextId); }
     public abstract double calculateArea();
-    public abstract void scale(double factor);
-    public abstract void scale(double xFactor, double yFactor);
+    public void scale(double factor) { scaleX *= factor; scaleY *= factor; }
+    public void scale(double xFactor, double yFactor) { scaleX *= xFactor; scaleY *= yFactor; }
     public String getShapeId() { return shapeId; }
 }
 
 class CircleShape extends Shape {
-    private double radius;
+    private final double radius;
     public CircleShape(double radius) { this.radius = radius; }
-    @Override public double calculateArea() { return Math.PI * radius * radius; }
-    @Override public void scale(double factor) { radius *= factor; }
-    @Override public void scale(double xFactor, double yFactor) { radius *= Math.sqrt(xFactor * yFactor); }
+    @Override public double calculateArea() { return Math.PI * radius * radius * scaleX * scaleY; }
 }
 
 class SquareShape extends Shape {
-    private double side;
+    private final double side;
     public SquareShape(double side) { this.side = side; }
-    @Override public double calculateArea() { return side * side; }
-    @Override public void scale(double factor) { side *= factor; }
-    @Override public void scale(double xFactor, double yFactor) { side *= Math.sqrt(xFactor * yFactor); }
+    @Override public double calculateArea() { return side * side * scaleX * scaleY; }
 }
 
 public class BasicDrawingCanvas {
