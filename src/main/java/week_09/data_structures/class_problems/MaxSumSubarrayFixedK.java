@@ -1,0 +1,2 @@
+package week_09.data_structures.class_problems;
+public class MaxSumSubarrayFixedK {public static long maxSumSubarray(int[]a,int k){if(a==null||k<1||k>a.length)throw new IllegalArgumentException("Invalid k");long s=0;for(int i=0;i<k;i++)s+=a[i];long best=s;for(int i=k;i<a.length;i++){s+=a[i]-(long)a[i-k];best=Math.max(best,s);}return best;}public static void main(String[]x){System.out.println(maxSumSubarray(new int[]{2,1,5,1,3,2},3));}}
