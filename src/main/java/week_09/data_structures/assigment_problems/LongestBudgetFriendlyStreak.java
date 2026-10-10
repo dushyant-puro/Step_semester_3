@@ -1,0 +1,2 @@
+package week_09.data_structures.assigment_problems;
+public class LongestBudgetFriendlyStreak {static int[] longestStreak(int[]a,long budget){int l=0,best=0,start=-1;long sum=0;for(int r=0;r<a.length;r++){sum+=a[r];while(l<=r&&sum>budget)sum-=a[l++];int len=r-l+1;if(len>best){best=len;start=best==0?-1:l;}}return best==0?new int[]{0,-1}:new int[]{best,start};}public static void main(String[]x){int[]r=longestStreak(new int[]{4,2,1,7,3,1,2,1,5},8);System.out.println("("+r[0]+", "+r[1]+")");}}
