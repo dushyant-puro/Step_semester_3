@@ -1,0 +1,3 @@
+package week_09.data_structures.assigment_problems;
+import java.util.HashMap;import java.util.Map;
+public class NetBalancePeriodCounter {public static long countPeriods(int[]transactions,long k){Map<Long,Long>freq=new HashMap<>();freq.put(0L,1L);long prefix=0,count=0;for(int v:transactions){prefix+=v;count+=freq.getOrDefault(prefix-k,0L);freq.put(prefix,freq.getOrDefault(prefix,0L)+1);}return count;}public static void main(String[]args){System.out.println(countPeriods(new int[]{3,4,-7,1,3,3,1,-4},7));System.out.println(countPeriods(new int[]{1,2,3},10));}}
