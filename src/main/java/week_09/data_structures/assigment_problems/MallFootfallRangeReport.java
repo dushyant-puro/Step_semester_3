@@ -1,0 +1,3 @@
+package week_09.data_structures.assigment_problems;
+import java.util.*;
+public class MallFootfallRangeReport {public static long[] footfallReport(int[]visitors,int[][]queries){long[]p=new long[visitors.length+1];for(int i=0;i<visitors.length;i++)p[i+1]=p[i]+visitors[i];long[]out=new long[queries.length];for(int i=0;i<queries.length;i++){int s=queries[i][0],e=queries[i][1];if(s<0||e<s||e>=visitors.length)throw new IllegalArgumentException("Bad range");out[i]=p[e+1]-p[s];}return out;}public static void main(String[]a){System.out.println(Arrays.toString(footfallReport(new int[]{12,7,3,9,15,4,8},new int[][]{{0,2},{2,5},{4,6},{3,3}})));}}
