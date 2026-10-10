@@ -1,0 +1,13 @@
+package week_08.sorting_algorithms.class_problems;
+import java.util.Arrays;
+public class SortingAlgorithms {
+ private static void swap(int[]a,int i,int j){int t=a[i];a[i]=a[j];a[j]=t;}
+ public static void bubbleSort(int[]a){for(int p=0;p<a.length-1;p++){boolean changed=false;for(int j=0;j<a.length-1-p;j++)if(a[j]>a[j+1]){swap(a,j,j+1);changed=true;}if(!changed)break;}}
+ public static void selectionSort(int[]a){for(int i=0;i<a.length-1;i++){int min=i;for(int j=i+1;j<a.length;j++)if(a[j]<a[min])min=j;if(min!=i)swap(a,i,min);}}
+ public static void insertionSort(int[]a){for(int i=1;i<a.length;i++){int key=a[i],j=i-1;while(j>=0&&a[j]>key){a[j+1]=a[j];j--;}a[j+1]=key;}}
+ public static void mergeSort(int[]a){if(a.length<2)return;mergeSort(a,new int[a.length],0,a.length-1);}private static void mergeSort(int[]a,int[]t,int l,int r){if(l>=r)return;int m=l+(r-l)/2;mergeSort(a,t,l,m);mergeSort(a,t,m+1,r);int i=l,j=m+1,k=l;while(i<=m&&j<=r)t[k++]=a[i]<=a[j]?a[i++]:a[j++];while(i<=m)t[k++]=a[i++];while(j<=r)t[k++]=a[j++];System.arraycopy(t,l,a,l,r-l+1);}
+ public static void quickSort(int[]a){quickSort(a,0,a.length-1);}private static void quickSort(int[]a,int l,int r){if(l>=r)return;int pivot=a[l+(r-l)/2],i=l,j=r;while(i<=j){while(a[i]<pivot)i++;while(a[j]>pivot)j--;if(i<=j)swap(a,i++,j--);}if(l<j)quickSort(a,l,j);if(i<r)quickSort(a,i,r);}
+ public static void heapSort(int[]a){for(int i=a.length/2-1;i>=0;i--)sift(a,a.length,i);for(int end=a.length-1;end>0;end--){swap(a,0,end);sift(a,end,0);}}private static void sift(int[]a,int n,int root){while(true){int max=root,left=2*root+1,right=left+1;if(left<n&&a[left]>a[max])max=left;if(right<n&&a[right]>a[max])max=right;if(max==root)return;swap(a,root,max);root=max;}}
+ public static void countingSort(int[]a){if(a.length<2)return;int min=a[0],max=a[0];for(int v:a){min=Math.min(min,v);max=Math.max(max,v);}long range=(long)max-min+1;if(range>1_000_000L)throw new IllegalArgumentException("Range too large");int[]count=new int[(int)range];for(int v:a)count[v-min]++;int k=0;for(int i=0;i<count.length;i++)while(count[i]-->0)a[k++]=i+min;}
+ public static void main(String[]args){int[]input={7,3,9,1,5};for(String method:new String[]{"bubble","selection","insertion","merge","quick","heap","counting"}){int[]a=input.clone();switch(method){case "bubble":bubbleSort(a);break;case "selection":selectionSort(a);break;case "insertion":insertionSort(a);break;case "merge":mergeSort(a);break;case "quick":quickSort(a);break;default:if(method.equals("heap"))heapSort(a);else countingSort(a);}System.out.println(method+": "+Arrays.toString(a));}}
+}
