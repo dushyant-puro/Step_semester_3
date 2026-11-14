@@ -1,0 +1,3 @@
+package week_09.data_structures.class_problems;
+import java.util.Arrays;
+public class PairSumSorted {public static int[] pairSumSorted(int[] a,int target){int i=0,j=a.length-1;while(i<j){long s=(long)a[i]+a[j];if(s==target)return new int[]{a[i],a[j]};if(s<target)i++;else j--;}return new int[0];}public static void main(String[]x){System.out.println(Arrays.toString(pairSumSorted(new int[]{-4,-1,0,3,5,9},4)));}}

@@ -1,0 +1,2 @@
+package week_09.data_structures.assigment_problems;
+public class ExamScoreBandCounter {public static int countInBand(int[]scores,int low,int high){int count=0;for(int s:scores)if(s>=low&&s<=high)count++;return count;}public static void main(String[]x){System.out.println(countInBand(new int[]{45,60,72,88,90,100},60,90));}}
