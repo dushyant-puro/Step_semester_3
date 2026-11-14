@@ -1,0 +1,8 @@
+package week_06.inheritance.assigment_problems;
+
+public class RaceWideBibSettlement {
+    static class RaceEntry {private static int counter=0;private final String entryCode;protected double balance;RaceEntry(String bib,double fee){if(bib==null||bib.trim().length()<4||fee<=0)throw new IllegalArgumentException();entryCode="RACE-"+(counter+1);counter++;balance=fee;}void pay(double a){if(a>0)balance=Math.max(0,balance-a);}void pay(double a,String mode){System.out.println("Paying via "+mode);pay(a);}double getBalanceDue(){return balance;}String getEntryCode(){return entryCode;}static int getBibCounter(){return counter;}static boolean isValidDiscountCode(String s){return s!=null&&s.length()==5&&s.charAt(0)=='M'&&Character.isDigit(s.charAt(1))&&Character.isDigit(s.charAt(2))&&Character.isDigit(s.charAt(3))&&Character.isUpperCase(s.charAt(4));}}
+    static class RelayTeamEntry extends RaceEntry {private int teamSize;RelayTeamEntry(String b,double f,int n){super(b,f);if(n<=0)throw new IllegalArgumentException();teamSize=n;}int getTeamSize(){return teamSize;}}
+    static String settleNight(RaceEntry[] entries){int done=0,nulls=0,relay=0,individual=0;for(RaceEntry e:entries){if(e==null){nulls++;continue;}done++;if(e instanceof RelayTeamEntry)relay++;else individual++;}return done+" processed | "+nulls+" null skipped | "+relay+" relay | "+individual+" individual";}
+    public static void main(String[] args){System.out.println(isValidDiscountCode("M123A"));System.out.println(settleNight(new RaceEntry[]{new RelayTeamEntry("BIB4",300,4),null,new RaceEntry("BIB5",50)}));}
+}
