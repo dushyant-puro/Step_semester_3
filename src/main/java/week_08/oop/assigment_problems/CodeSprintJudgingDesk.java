@@ -1,0 +1,10 @@
+package week_08.oop.assigment_problems;
+import java.util.*;
+public class CodeSprintJudgingDesk {
+ interface ScoringRule { double score(double idea,double execution,double presentation); }
+ static class Innovation implements ScoringRule { public double score(double i,double e,double p){return .5*i+.3*e+.2*p;} }
+ static class OpenTrack implements ScoringRule { public double score(double i,double e,double p){return (i+e+p)/3.0;} }
+ static class Team { String name,track,project; List<String> members; Team(String n,List<String> m,String t){if(m.size()<2||m.size()>4)throw new IllegalArgumentException("A team must have 2 to 4 members");name=n;members=new ArrayList<>(m);track=t;} }
+ static class Hackathon { Map<String,Team> teams=new LinkedHashMap<>();Map<String,Double> scores=new HashMap<>();boolean published;void register(Team t){if(published)throw new IllegalStateException("Published");for(Team old:teams.values())for(String s:t.members)if(old.members.contains(s))throw new IllegalArgumentException("Student already belongs to a team");teams.put(t.name,t);}void submit(String team,String project){Team t=teams.get(team);if(published||t==null||t.project!=null)throw new IllegalStateException("Submission rejected");t.project=project;}void score(String project,double i,double e,double p,ScoringRule rule){if(published)throw new IllegalStateException("Results published");scores.put(project,rule.score(i,e,p));}void publish(){published=true;} }
+ public static void main(String[] args){Hackathon h=new Hackathon();h.register(new Team("ByteBusters",Arrays.asList("Asha","Ravi","Neha"),"Innovation"));h.submit("ByteBusters","SmartAttend");h.score("SmartAttend",8,7,9,new Innovation());System.out.printf("Final score: %.2f%n",h.scores.get("SmartAttend"));h.publish();try{h.score("SmartAttend",10,7,9,new Innovation());}catch(IllegalStateException e){System.out.println("Rescore rejected: Results have already been published.");}}
+}
